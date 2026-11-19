@@ -39,3 +39,20 @@ def run_program(program, timeout=10.0):
     if result.returncode == 0:
         return {"passed": True, "error": ""}
     return {"passed": False, "error": result.stderr[-1000:]}
+
+def build_program_full(problem, code):
+    """For when the model returns a whole function (def line included).
+
+    We still include the original prompt first, because some prompts contain
+    imports or helper functions the solution depends on. The model's def
+    simply redefines the function.
+    """
+    return (
+        problem["prompt"]
+        + "    pass\n\n"
+        + code
+        + "\n\n"
+        + problem["test"]
+        + "\n\n"
+        + f"check({problem['entry_point']})\n"
+    )
