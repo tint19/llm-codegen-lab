@@ -56,3 +56,14 @@ def build_program_full(problem, code):
         + "\n\n"
         + f"check({problem['entry_point']})\n"
     )
+
+def build_visible_program(problem, code, asserts):
+    """Candidate code + visible docstring asserts only (no hidden tests)."""
+    return (
+        problem["prompt"]
+        + "    pass\n\n"
+        + code
+        + "\n\n"
+        + "\n".join(asserts)
+        + "\n"
+    )
