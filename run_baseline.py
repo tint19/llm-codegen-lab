@@ -6,13 +6,7 @@ from pathlib import Path
 from data import load_humaneval
 from execute import build_program_full, run_program
 from llm import DEFAULT_MODEL, extract_code, generate
-
-SYSTEM = (
-    "You are an expert Python programmer. Complete the given function. "
-    "Return the complete function, including the def line and any imports "
-    "it needs, in a single ```python code block. Do not include tests or "
-    "example usage."
-)
+from prompts import SOLVE_SYSTEM as SYSTEM
 
 limit = int(sys.argv[1]) if len(sys.argv) > 1 else None
 problems = load_humaneval()
